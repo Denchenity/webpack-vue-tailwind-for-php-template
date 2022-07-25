@@ -13,7 +13,7 @@ const pathToFont = path.join(__dirname, './src/assets/font/');
 const pathToImage = path.join(__dirname, './src/assets/image');
 const pathToService = path.join(__dirname, './src/components/Service/');
 const pathToComponent = path.join(__dirname, './src/components/UI/');
-const pathToStyle = path.join(__dirname, './src//style/');
+const pathToStyle = path.join(__dirname, './src/style/');
 
 const PORT = 8080;
 
