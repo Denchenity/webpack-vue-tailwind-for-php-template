@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Оформление виз во все страны мира</title>
+    
+    <% for (var css in htmlWebpackPlugin.files.css) { %>
+    <% if (htmlWebpackPlugin.files.css[css].includes('visa')) { %>
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css[css] %>">
+    <% } %>
+    <% } %>
+   
+    
+</head>
+<body>
+    <div id="visa">
+        <visa></visa>
+    </div>
+    <% for (var js in htmlWebpackPlugin.files.js) { %>
+    <% if (htmlWebpackPlugin.files.js[js].includes('visa')) { %>
+    <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
+    <% } %>
+    <% } %>
+</body>
+</html>
