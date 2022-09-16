@@ -9,11 +9,21 @@ const {DefinePlugin} = require('webpack');
 const isDev = process.env.NODE_ENV === 'development';
 const IsProd = !isDev;
 
-const pathToFont = path.join(__dirname, './src/assets/font/');
-const pathToImage = path.join(__dirname, './src/assets/image');
-const pathToService = path.join(__dirname, './src/components/Service/');
-const pathToComponent = path.join(__dirname, './src/components/UI/');
-const pathToStyle = path.join(__dirname, './src/style/');
+
+
+const BaseComponentPath = path.join(__dirname, './src/components/BaseComponent.vue');
+const ComponentPath = path.join(__dirname, './src/components/');
+const StylePath = path.join(__dirname, './src/style/');
+const StorePath = path.join(__dirname, './src/store/');
+const HelpersPath = path.join(__dirname, './src/helpers/');
+const NodeModules = path.join(__dirname, './node_modules/');
+const FontPath = path.join(__dirname, './src/assets/font/');
+const ImagePath = path.join(__dirname, './src/assets/image/');
+const MixinPath = path.join(__dirname, './src/mixins/');
+const DirectivesPath = path.join(__dirname, './src/directives/');
+const CompositionsPath = path.join(__dirname, './src/composition/');
+
+const bundle_name = 'dist';
 
 const PORT = 8080;
 
@@ -21,25 +31,30 @@ module.exports = {
     mode: 'development',
     resolve:{
         alias:{
-            '@font': pathToFont,
-            '@image': pathToImage,
-            '@service': pathToService,
-            '@component': pathToComponent,
-            '@style': pathToStyle,
+            '@component': ComponentPath,
+            '@style': StylePath,
+            '@baseComponent': BaseComponentPath,
+            '@store': StorePath,
+            '@helpers': HelpersPath,
+            '@': NodeModules,
+            '@font': FontPath,
+            '@image': ImagePath,
+            '@mixins': MixinPath,
+            '@directives': DirectivesPath,
+            '@composition': CompositionsPath,
         }
     },
     entry: {
-        visa: path.resolve(__dirname, './src/services/visa/visa.js'),
-        test: path.resolve(__dirname, './src/services/test/test.js'),
+        test: path.resolve(__dirname, './src/module/test/test.js'),
     },
     output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'services/[name]/[name].js',
+        path: path.resolve(__dirname, `./${bundle_name}`),
+        filename: 'module/[name]/[name].js',
         clean: true,
     },
     devServer: {
         static: {
-            directory: path.join(__dirname, `./dist`),
+            directory: path.join(__dirname, `./${bundle_name}`),
         },
         compress: true,
         port: PORT,
@@ -66,6 +81,7 @@ module.exports = {
                     CssMin.loader,
                     'css-loader',
                     'postcss-loader',
+                    'sass-loader',
                 ],
             },
             {
@@ -97,21 +113,16 @@ module.exports = {
     },
     plugins: [
         new CssMin({
-            filename: 'style/[name]/[name].css',
+            filename: 'module/[name]/[name].css',
         }),
         new VueLoaderPlugin(),
         new DefinePlugin({
             __VUE_OPTIONS_API__: true,
-            __VUE_PROD_DEVTOOLS__: true
+            __VUE_PROD_DEVTOOLS__: isDev
         }),
         new HtmlWebpackPlugin({
-            template: `./src/views/visa.html`,
-            filename: `./views/visa.html`,
-            inject: false,
-        }),
-        new HtmlWebpackPlugin({
-            template: `./src/views/test.html`,
-            filename: `./views/test.html`,
+            template: `./src/module/test/test.html`,
+            filename: `./module/test/test.html`,
             inject: false,
         }),
     ],

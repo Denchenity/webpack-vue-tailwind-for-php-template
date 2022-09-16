@@ -12,7 +12,7 @@
     <% } %>
 </head>
 <body>
-    <h1>HELLO TEST</h1>
+    <div id="test"></div>
     <% for (var js in htmlWebpackPlugin.files.js) { %>
     <% if (htmlWebpackPlugin.files.js[js].includes('test')) { %>
     <script src="<%= htmlWebpackPlugin.files.js[js] %>"></script>
